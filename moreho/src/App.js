@@ -1,10 +1,10 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import Navbar from "./views/page/Navbar";
+import Navbar from "./views/Pages/Navbar";
 import Movies from "./views/components/main/Movies";
-import Login from "./views/page/Login";
-import Register from "./views/page/Register";
-import NotFound from "./views/page/NotFound";
+import Login from "./views/Pages/Login";
+import Register from "./views/Pages/Register";
+import NotFound from "./views/Pages/NotFound";
 
 const App = () => {
     return (
@@ -15,7 +15,8 @@ const App = () => {
                 <Route path="/Login" component={Login} />
                 <Route path="/Register" component={Register} />
                 <Route path="/notfound" component={NotFound} />
-                <Redirect from="" exact to="notfound"/>
+                <Redirect exact from="/" to="/movies" />
+                <Redirect to="/notfound" />
             </Switch>
         </>
     );

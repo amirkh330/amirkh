@@ -1,10 +1,20 @@
 import React from "react";
-import Like from "./Like";
+import Pagination from "./Pagination";
+import Like from "../common/Like";
+import PropTypes from "prop-types";
 
-const MoviesTable = ({ movies,onLiked }) => {
+const MoviesTable = ({
+    count,
+    movies,
+    onLiked,
+    onDelete,
+    pageSize,
+    onPaginate,
+    currentPage,
+}) => {
     return (
         <>
-            <h1 className="title">There are {movies.length} Movies avaibale</h1>
+            <h1 className="title">There are {count} Movies avaibale</h1>
             <table className="table">
                 <thead>
                     <tr>
@@ -16,7 +26,7 @@ const MoviesTable = ({ movies,onLiked }) => {
                 </thead>
                 <tbody>
                     {movies.map((movie) => (
-                        <tr key={movies._id}>
+                        <tr key={movie._id}>
                             <td>{movie.title}</td>
                             <td>{movie.genre.name}</td>
                             <td>{movie.numberInStock}</td>
@@ -27,13 +37,34 @@ const MoviesTable = ({ movies,onLiked }) => {
                                     onLike={() => onLiked(movie)}
                                 />
                             </td>
-                            <td></td>
+                            <td>
+                                <button
+                                    className="btn btn-danger"
+                                    onClick={() => onDelete(movie)}
+                                >
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            <Pagination
+                movies={count}
+                pageSize={pageSize}
+                itemsPage={movies.length}
+                onPaginate={onPaginate}
+                currentPage={currentPage}
+            />
         </>
     );
+};
+
+MoviesTable.propTypes = {
+    movies: PropTypes.array.isRequired,
+    onLiked: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    pageSize: PropTypes.number.isRequired,
 };
 
 export default MoviesTable;
